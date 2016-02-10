@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_b"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <!--SingIN-->
+    <RelativeLayout
+        android:id="@+id/GSignin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="51dp"
+            android:layout_gravity="bottom"
+            android:textSize="18dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <!--Profile-->
+    <LinearLayout
+        android:id="@+id/GProfile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="logout"
+            android:padding="10dp"
+            android:text="LOGOUT"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/mainlandmarks"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="landmark"
+            android:padding="10dp"
+            android:text="LANDMARKS"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</RelativeLayout>
