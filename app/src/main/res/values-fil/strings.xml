@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Church">Simbahan</string>
+    <string name="Gallery">Galerya</string>
+    <string name="Landmarks">Attraksyon</string>
+    <string name="Museum">Museo</string>
+    <string name="Park">Parke</string>
+    <string name="Sports">Palaruan</string>
+    <string name="Zoo">Palahayupan</string>
+    <string name="l_address">Adres:</string>
+    <string name="l_find">Hanapin</string>
+    <string name="l_landmark">Atraksyon</string>
+    <string name="l_login">Mag-Sign In</string>
+    <string name="l_logout">Mag-logout</string>
+    <string name="l_map">Uri ng mapa</string>
+    <string name="l_phone">Numero ng Telepono:</string>
+    <string name="l_rating">Marka:</string>
+    <string name="l_webiste">Websayt:</string>
+</resources>

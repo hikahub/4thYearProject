@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Church">Kirche</string>
+    <string name="Gallery">Galerie</string>
+    <string name="Landmarks">Touristenattraktion</string>
+    <string name="Museum">Museum</string>
+    <string name="Park">Park</string>
+    <string name="Sports">Spielplatz</string>
+    <string name="Zoo">TierPark</string>
+    <string name="l_address">Adresse</string>
+    <string name="l_find">Finden</string>
+    <string name="l_landmark">Touristenattraktion</string>
+    <string name="l_login">Anmeldung</string>
+    <string name="l_logout">Ausloggen</string>
+    <string name="l_map">Kartentyp</string>
+    <string name="l_phone">Kontakt:</string>
+    <string name="l_rating">Wertung:</string>
+    <string name="l_webiste">Webseite:</string>
+</resources>

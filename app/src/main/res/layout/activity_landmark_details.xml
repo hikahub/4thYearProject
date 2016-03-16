@@ -1,6 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <WebView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/landmark_details"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dip"
+    android:background="@drawable/info"
+    android:gravity="center">
+
+
+
+    <!--  Name Value -->
+    <TextView
+        android:id="@+id/name"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:fontFamily="san-serif-thin"
+        />
+
+    <!-- Address Label -->
+    <TextView
+        android:text="@string/l_address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:layout_marginBottom="5dip"
+        android:textStyle="bold"
+        android:textColor="#42332a"
+        android:textSize="15dp"
+        android:fontFamily="san-serif-thin"/>
+
+    <!--  Address Value -->
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:fontFamily="san-serif-thin"
+        />
+
+    <!-- Phone Number Label -->
+    <TextView
+        android:text="@string/l_phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:layout_marginBottom="5dip"
+        android:textStyle="bold"
+        android:textColor="#42332a"
+        android:textSize="15dp"
+        android:fontFamily="san-serif-thin"/>
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:clickable="true"
+        android:fontFamily="san-serif-thin"/>
+
+
+    <!-- website Label -->
+    <TextView
+        android:text="@string/l_webiste"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:layout_marginBottom="5dip"
+        android:textStyle="bold"
+        android:textColor="#42332a"
+        android:textSize="15dp"
+        android:fontFamily="san-serif-thin"/>
+
+    <TextView
+        android:id="@+id/website"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:clickable="true"
+        android:fontFamily="san-serif-thin"/>
+
+    <!-- Rating Label -->
+    <TextView
+        android:text="@string/l_rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:layout_marginBottom="5dip"
+        android:textStyle="bold"
+        android:textColor="#42332a"
+        android:textSize="15dp"
+        android:fontFamily="san-serif-thin"/>
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:fontFamily="san-serif-thin"/>
+
+</LinearLayout>
 

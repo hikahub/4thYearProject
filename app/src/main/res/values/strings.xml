@@ -1,5 +1,35 @@
 <resources>
-    <string name="app_name">TourMe</string>
-    <string name="title_activity_landmarks">Tour Me</string>
+    <string name="app_name" translatable="false">TourMe</string>
+    <string name="title_activity_landmarks" translatable="false">Tour Me</string>
 
+    <!--Buttons-->
+    <string name="l_login">Sign in</string>
+    <string name="l_logout">Logout</string>
+    <string name="l_landmark">Landmarks</string>
+    <string name="l_find">Find</string>
+    <string name="l_map">Map Type</string>
+
+    <!--Spinner-->
+    <string-array name="landmark_name">
+        <item>@string/Landmarks</item>
+        <item>@string/Park</item>
+        <item>@string/Gallery</item>
+        <item>@string/Church</item>
+        <item>@string/Museum</item>
+        <item>@string/Zoo</item>
+        <item>@string/Sports</item>
+    </string-array>
+
+    <!--Details-->
+    <string name="l_address">Address: </string>
+    <string name="l_phone">Contact: </string>
+    <string name="l_webiste">Website: </string>
+    <string name="l_rating">Rating: </string>
+    <string name="Landmarks" >Landmarks</string>
+    <string name="Park" >Park</string>
+    <string name="Gallery" >Gallery</string>
+    <string name="Church" >Church</string>
+    <string name="Museum" >Museum</string>
+    <string name="Zoo" >Zoo</string>
+    <string name="Sports" >Sports Area</string>
 </resources>

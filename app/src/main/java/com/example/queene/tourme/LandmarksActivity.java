@@ -6,12 +6,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.plus.PlusShare;
 
 import org.json.JSONObject;
 
@@ -44,9 +47,10 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
     private String API_KEY = "AIzaSyBVc4wVf-geMQBwcoD8zBTisSLil3i6SUc";
     private GoogleMap mMap;
     private Spinner landmarkName;
+
     double mLatitude=0, mLongtitude=0;
     String[] landmarkTypes={"establishment","park","art_gallery","church","museum","zoo","stadium"};
-    String[] landmarkCategory={"Landmarks","Park","Art Gallery", "Church","Museum","Zoo","Sports"};
+    String[] landmarkCategory=null;
 
     HashMap<String,String> markerLink = new HashMap<String,String>();
 
@@ -55,6 +59,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landmarks);
 
+        landmarkCategory = getResources().getStringArray(R.array.landmark_name);
         // Creating an array adapter with an array of Landmarks types to populate the spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, landmarkCategory);
 
@@ -62,8 +67,10 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
         landmarkName = (Spinner) findViewById(R.id.landmarks_category);
         landmarkName.setAdapter(adapter);
 
+
+
         // Getting reference to Find Button
-        Button btnFind = ( Button ) findViewById(R.id.btn_find);
+        //Button btnFind = ( Button ) findViewById(R.id.btn_find);
 
 
         // Getting Google Play availability status
@@ -109,11 +116,9 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                 }
             });
 
-            // Setting click event lister for the find button
-            btnFind.setOnClickListener(new OnClickListener() {
-
+            landmarkName.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
-                public void onClick(View v) {
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     int selectedPosition = landmarkName.getSelectedItemPosition();
                     String category = landmarkTypes[selectedPosition];
 
@@ -130,7 +135,51 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                     // Invokes the "doInBackground()" method of the class PlaceTask
                     LTask.execute(urlString.toString());
 
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            // Setting click event lister for the find button
+//            btnFind.setOnClickListener(new OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    int selectedPosition = landmarkName.getSelectedItemPosition();
+//                    String category = landmarkTypes[selectedPosition];
+//
+//                    StringBuilder urlString = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+//                    urlString.append("location="+mLatitude+","+mLongtitude);
+//                    urlString.append("&radius=10000");
+//                    urlString.append("&types=" + category);
+//                    urlString.append("&sensor=true");
+//                    urlString.append("&key="+ API_KEY);
+//
+//                    // Creating a new non-ui thread task to download Google place json data
+//                    LandmarksTask LTask = new LandmarksTask();
+//
+//                    // Invokes the "doInBackground()" method of the class PlaceTask
+//                    LTask.execute(urlString.toString());
+//
+//
+//                }
+//            });
+
+
+            Button shareButton  = (Button) findViewById(R.id.share_button);
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Launch the Google+ share dialog with attribution to your app.
+                    Intent shareIntent = new PlusShare.Builder(LandmarksActivity.this)
+                            .setType("text/plain")
+                            .setText("Welcome to the Google+ platform.")
+                            .setContentUrl(Uri.parse("https://developers.google.com/+/"))
+                            .getIntent();
+
+                    startActivityForResult(shareIntent, 0);
                 }
             });
 
@@ -266,10 +315,11 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
 
                 // Setting the title for the marker.
                 //This will be displayed on taping the marker
-                markerOptions.title(name + " : " + vicinity);
+                markerOptions.title(name + " \t " + vicinity);
 
                 // Placing a marker on the touched position
                 Marker mark = mMap.addMarker(markerOptions);
+
 
                 //linking the marker and landmark ref
                 markerLink.put(mark.getId(),pLandmark.get("reference"));
@@ -296,7 +346,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
     {
         if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
         {
-            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         }
         else
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

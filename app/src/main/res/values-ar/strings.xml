@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Church">كنيسة</string>
+    <string name="Gallery">صالة عرض</string>
+    <string name="Landmarks">لاندمارك</string>
+    <string name="Museum">متحف</string>
+    <string name="Park">حديقة عامة</string>
+    <string name="Sports">الرياضة</string>
+    <string name="Zoo">حديقة حيوان</string>
+    <string name="l_address">عنوان</string>
+    <string name="l_find">تجد</string>
+    <string name="l_landmark">لاندمارك</string>
+    <string name="l_login">تسجيل الدخول</string>
+    <string name="l_logout">خروج</string>
+    <string name="l_map">نوع الخريطة</string>
+    <string name="l_phone">اتصال</string>
+    <string name="l_rating">تصنيف</string>
+    <string name="l_webiste">موقع الكتروني</string>
+</resources>

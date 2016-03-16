@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Church">教会</string>
+    <string name="Gallery">画廊</string>
+    <string name="Landmarks">旅游景点</string>
+    <string name="Museum">博物馆</string>
+    <string name="Park">园林</string>
+    <string name="Sports">体育</string>
+    <string name="Zoo">动物园</string>
+    <string name="l_address">地址</string>
+    <string name="l_find">发现</string>
+    <string name="l_landmark">旅游景点</string>
+    <string name="l_login">登录</string>
+    <string name="l_logout">登出</string>
+    <string name="l_map">地图类型</string>
+    <string name="l_phone">联系</string>
+    <string name="l_rating">等级</string>
+    <string name="l_webiste">网站</string>
+</resources>

@@ -1,10 +1,10 @@
 package com.example.queene.tourme.Details;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.example.queene.tourme.R;
 
@@ -21,8 +21,8 @@ import java.util.HashMap;
 /**
  * Created by Queene on 26/01/2016.
  */
-public class LandmarkDetails extends FragmentActivity {
-    WebView LandmDetails;
+public class LandmarkDetails extends Activity {
+    //WebView LandmDetails;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,9 +30,9 @@ public class LandmarkDetails extends FragmentActivity {
         setContentView(R.layout.activity_landmark_details);
 
         // Getting reference to WebView ( wv_place_details ) of the layout activity_place_details
-        LandmDetails = (WebView) findViewById(R.id.landmark_details);
+       // LandmDetails = (WebView) findViewById(R.id.landmark_details);
 
-        LandmDetails.getSettings().setUseWideViewPort(false);
+        //LandmDetails.getSettings().setUseWideViewPort(false);
 
         // Getting place reference from the map
         String reference = getIntent().getStringExtra("reference");
@@ -115,59 +115,53 @@ public class LandmarkDetails extends FragmentActivity {
     }
 
     /** A class to parse the Google Place Details in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, HashMap<String,String>>{
+    private class ParserTask extends AsyncTask<String, Integer, HashMap<String,String>> {
 
         JSONObject jObject;
 
         // Invoked by execute() method of this object
         @Override
-        protected HashMap<String,String> doInBackground(String... jsonData) {
+        protected HashMap<String, String> doInBackground(String... jsonData) {
 
             HashMap<String, String> landDetails = null;
             LDetailParser lDetailsParser = new LDetailParser();
 
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
 
                 // Start parsing Google place details in JSON format
                 landDetails = lDetailsParser.parse(jObject);
 
-            }catch(Exception e){
-                Log.d("Exception",e.toString());
+            } catch (Exception e) {
+                Log.d("Exception", e.toString());
             }
             return landDetails;
         }
 
         // Executed after the complete execution of doInBackground() method
         @Override
-        protected void onPostExecute(HashMap<String,String> landDetails){
+        protected void onPostExecute(HashMap<String, String> landDetails) {
 
             String name = landDetails.get("name");
-            String icon = landDetails.get("icon");
             String formatted_address = landDetails.get("formatted_address");
             String website = landDetails.get("website");
             String rating = landDetails.get("rating");
             String international_phone_number = landDetails.get("international_phone_number");
-            String weekday_text = landDetails.get("weekday_text");
-            String url = landDetails.get("url");
 
-            String mimeType = "text/html";
-            String encoding = "utf-8";
 
-            String data = "<html>"+
-                    "<body><img style='float:left' src="+icon+" /><h1><center>"+name+"</center></h1>" +
-                    "<br style='clear:both' />" +
-                    "<hr />"+
-                    "<p>Address : " + formatted_address + "</p>" +
-                    "<p>Website : " + website + "</p>" +
-                    "<p>Rating : " + rating + "</p>" +
-                    "<p>Contact number : " + international_phone_number + "</p>" +
-                    "<p>Opening hours : " + weekday_text + "</p>" +
-                    "<p>URL : <a href='" + url + "'>" + url + "</p>" +
-                    "</body></html>";
+            TextView lm_name = (TextView) findViewById(R.id.name);
+            TextView lm_address = (TextView) findViewById(R.id.address);
+            TextView lm_website = (TextView) findViewById(R.id.website);
+            TextView lm_rating = (TextView) findViewById(R.id.rating);
+            TextView lm_phone = (TextView) findViewById(R.id.phone);
 
-            // Setting the data in WebView
-            LandmDetails.loadDataWithBaseURL("", data, mimeType, encoding, "");
+
+            lm_name.setText(name);
+            lm_address.setText(formatted_address);
+            lm_website.setText(website);
+            lm_rating.setText(rating);
+            lm_phone.setText(international_phone_number);
+
         }
     }
 

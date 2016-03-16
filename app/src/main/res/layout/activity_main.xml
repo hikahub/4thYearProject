@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_b"
+    android:background="@drawable/img"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="15dp">
@@ -20,14 +20,17 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signin"
+            android:text="@string/l_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="51dp"
+            android:layout_marginBottom="119dp"
             android:layout_gravity="bottom"
             android:textSize="18dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            />
 
     </RelativeLayout>
 
@@ -39,37 +42,62 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone"
+        android:background="@drawable/prof">
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+
+            />
 
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:fontFamily="san-serif-thin"
+            />
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="logout"
-            android:padding="10dp"
-            android:text="LOGOUT"
-            android:textSize="18dp" />
-
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="2">
         <Button
             android:id="@+id/mainlandmarks"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="landmark"
+            android:layout_margin="10dp"
             android:padding="10dp"
-            android:text="LANDMARKS"
-            android:textSize="18dp" />
+            android:text="@string/l_landmark"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:textColor="#ffffff"
+            android:fontFamily="san-serif-thin"
+            >
+        </Button>
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="logout"
+            android:padding="10dp"
+            android:text="@string/l_logout"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:fontFamily="san-serif-thin"
+            android:background="@drawable/button">
+        </Button>
+    </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
