@@ -8,7 +8,6 @@
     android:gravity="center">
 
 
-
     <!--  Name Value -->
     <TextView
         android:id="@+id/name"
@@ -25,7 +24,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
-        android:layout_marginBottom="5dip"
+        android:layout_marginBottom="2dip"
         android:textStyle="bold"
         android:textColor="#42332a"
         android:textSize="15dp"
@@ -37,8 +36,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:fontFamily="san-serif-thin"
+
         />
 
     <!-- Phone Number Label -->
@@ -47,7 +47,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
-        android:layout_marginBottom="5dip"
+        android:layout_marginBottom="2dip"
         android:textStyle="bold"
         android:textColor="#42332a"
         android:textSize="15dp"
@@ -55,11 +55,11 @@
 
     <TextView
         android:id="@+id/phone"
+        android:autoLink="phone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:clickable="true"
         android:fontFamily="san-serif-thin"/>
 
@@ -70,7 +70,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
-        android:layout_marginBottom="5dip"
+        android:layout_marginBottom="2dip"
         android:textStyle="bold"
         android:textColor="#42332a"
         android:textSize="15dp"
@@ -78,11 +78,11 @@
 
     <TextView
         android:id="@+id/website"
+        android:autoLink="web"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:clickable="true"
         android:fontFamily="san-serif-thin"/>
 
@@ -92,7 +92,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
-        android:layout_marginBottom="5dip"
+        android:layout_marginBottom="2dip"
         android:textStyle="bold"
         android:textColor="#42332a"
         android:textSize="15dp"
@@ -102,10 +102,56 @@
         android:id="@+id/rating"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:textColor="#ffffff"
-        android:textSize="20dp"
+        android:drawableLeft="@drawable/star"
+        android:textSize="17dp"
         android:fontFamily="san-serif-thin"/>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:text="@string/StreetView"
+            android:id="@+id/streetview"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button"
+            android:textColor="#ffffff"
+            android:fontFamily="san-serif-thin">
+
+        </Button>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:textSize="15dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/Share"
+            android:background="@drawable/button"
+            android:textColor="#ffffff"
+            android:fontFamily="san-serif-thin"
+
+            >
+        </Button>
+    </LinearLayout>
+
+
 
 </LinearLayout>
 

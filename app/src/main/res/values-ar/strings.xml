@@ -16,4 +16,8 @@
     <string name="l_phone">اتصال</string>
     <string name="l_rating">تصنيف</string>
     <string name="l_webiste">موقع الكتروني</string>
+    <string name="Restaurant">مطعم</string>
+    <string name="Share">حصة ل G+</string>
+    <string name="StreetView">عرض الشارع</string>
+    <string name="Transportation">وسائل النقل</string>
 </resources>

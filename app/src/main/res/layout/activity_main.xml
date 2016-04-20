@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
+    android:background="@drawable/prof2"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="15dp">
+    >
 
     <!--SingIN-->
     <RelativeLayout
         android:id="@+id/GSignin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:gravity="bottom"
         android:orientation="vertical"
         android:visibility="visible" >
@@ -23,14 +22,13 @@
             android:text="@string/l_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="119dp"
             android:layout_gravity="bottom"
-            android:textSize="18dp"
+            android:textSize="25dp"
+
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-
-            />
+            android:layout_marginBottom="60dp" />
 
     </RelativeLayout>
 
@@ -45,13 +43,26 @@
         android:visibility="gone"
         android:background="@drawable/prof">
 
-        <ImageView
+        <com.github.siyamed.shapeimageview.CircularImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            app:siBorderWidth="3dp"
+            app:siBorderColor="#ffffff"/>
 
+
+
+        <TextView
+            android:id="@+id/pCity"
+            android:drawableLeft="@drawable/loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:fontFamily="san-serif-thin"
             />
-
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
@@ -66,7 +77,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="2">
@@ -75,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:padding="10dp"
+            android:padding="15dp"
             android:text="@string/l_landmark"
             android:textSize="18dp"
             android:layout_weight="1"
@@ -89,8 +100,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="10dp"
             android:onClick="logout"
-            android:padding="10dp"
+            android:padding="15dp"
             android:text="@string/l_logout"
             android:textSize="18dp"
             android:textColor="#ffffff"

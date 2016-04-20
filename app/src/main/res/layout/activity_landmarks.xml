@@ -2,41 +2,34 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="395dp"
-        android:layout_height="wrap_content">
-
+        android:layout_height="55dp"
+        android:background="#45B8AC"
+            >
 
         <Spinner
             android:id="@+id/landmarks_category"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_alignParentTop="true" />
-
-        <!--<Button
-            android:id="@+id/btn_find"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/landmarks_category"
-            android:text="@string/l_find" />-->
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/maptype"
-            android:id="@+id/Btype"
-            android:nestedScrollingEnabled="false"
-            android:onClick="changeType" />
+            />
+
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:id="@+id/share_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/share1" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/map"
+            android:id="@+id/Btype"
+            android:layout_gravity="right"
+            android:nestedScrollingEnabled="false"
+            android:onClick="changeType"
+            android:layout_marginLeft="15dp"/>
+
     </LinearLayout>
 
     <fragment

@@ -31,15 +31,14 @@ public class LDetailParser {
         HashMap<String, String> landDetails = new HashMap<String, String>();
 
         String name = "-NA-";
-        String icon = "-NA-";
+        //String icon = "-NA-";
         String formatted_address="-NA-";
         String latitude="";
         String longitude="";
         String website="-NA-";
         String rating="-NA-";
         String international_phone_number = "-NA-";
-        String weekday_text ="-NA-";
-        String url="-NA-";
+
 
         try {
             // Extracting Place name, if available
@@ -48,10 +47,9 @@ public class LDetailParser {
             }
 
             // Extracting Icon, if available
-            if(!jLDetails.isNull("icon")){
-                icon = jLDetails.getString("icon");
-            }
-
+//            if(!jLDetails.isNull("icon")){
+//                icon = jLDetails.getString("icon");
+//            }
 
             // Extracting Place formatted_address, if available
             if(!jLDetails.isNull("formatted_address")){
@@ -72,30 +70,21 @@ public class LDetailParser {
             if(!jLDetails.isNull("international_phone_number")){
                 international_phone_number = jLDetails.getString("international_phone_number");
             }
-            // Extracting rating, if available
-            if(!jLDetails.isNull("weekday_text")){
-                weekday_text = jLDetails.getString("weekday_text");
-            }
 
 
-            // Extracting url, if available
-            if(!jLDetails.isNull("url")){
-                url = jLDetails.getString("url");
-            }
 
             latitude = jLDetails.getJSONObject("geometry").getJSONObject("location").getString("lat");
             longitude = jLDetails.getJSONObject("geometry").getJSONObject("location").getString("lng");
 
-            landDetails .put("name", name);
-            landDetails .put("icon", icon);
-            landDetails .put("lat", latitude);
-            landDetails .put("lng", longitude);
-            landDetails .put("formatted_address", formatted_address);
-            landDetails .put("website", website);
-            landDetails .put("rating", rating);
-            landDetails .put("international_phone_number", international_phone_number);
-            landDetails .put("weekday_text", weekday_text);
-            landDetails .put("url", url);
+            landDetails.put("name", name);
+           // landDetails .put("icon", icon);
+            landDetails.put("lat", latitude);
+            landDetails.put("lng", longitude);
+            landDetails.put("formatted_address", formatted_address);
+            landDetails.put("website", website);
+            landDetails.put("rating", rating);
+            landDetails.put("international_phone_number", international_phone_number);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

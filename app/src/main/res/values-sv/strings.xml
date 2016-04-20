@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Landmarks">Landmärke</string>
+    <string name="Museum">Museum </string>
+    <string name="Zoo">Djurpark</string>
+    <string name="Park">Park</string>
+    <string name="Church">Kyrka</string>
+    <string name="l_address">Adress</string>
+    <string name="l_phone">Kontakt</string>
+    <string name="l_webiste">Hemsida</string>
+    <string name="l_rating">Värdering</string>
+    <string name="l_logout">Utloggning</string>
+    <string name="l_landmark">Landmärke</string>
+    <string name="l_find">hitta</string>
+    <string name="l_login">Inloggning</string>
+    <string name="l_map">karta typ</string>
+    <string name="Gallery">Galleri</string>
+    <string name="Restaurant">Restaurant</string>
+    <string name="Share"> Dela till G+</string>
+    <string name="Sports">Sportområde</string>
+    <string name="StreetView">Gatuvy</string>
+    <string name="Transportation">Transport</string>
+</resources>

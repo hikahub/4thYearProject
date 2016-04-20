@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Church">Templo</string>
+    <string name="Gallery">Galería</string>
+    <string name="Landmarks">Atracción turística</string>
+    <string name="l_landmark">Atracción turística</string>
+    <string name="Museum">Museo</string>
+    <string name="Park">Parque</string>
+    <string name="Restaurant">Restaurante</string>
+    <string name="Share">Compartir en G+</string>
+    <string name="Sports">Área de Deportes</string>
+    <string name="StreetView">Vista de calle</string>
+    <string name="Transportation">Transporte</string>
+    <string name="Zoo">Zoo</string>
+    <string name="l_address">Vivienda</string>
+    <string name="l_find"> hallar</string>
+    <string name="l_login"> Iniciar Sesión</string>
+    <string name="l_logout">Cerrar Sesión</string>
+    <string name="l_map"> tipo de mapa</string>
+    <string name="l_phone">Contacto</string>
+    <string name="l_rating">Tasación</string>
+    <string name="l_webiste">El Sitio</string>
+</resources>

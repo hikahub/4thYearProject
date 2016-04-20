@@ -24,6 +24,7 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
 import java.io.InputStream;
+import java.util.List;
 
 public class MainActivity extends Activity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -35,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
     private ConnectionResult mConnectionResult;
     private SignInButton loginButton;
     private ImageView profImg;
-    private TextView username;
+    private TextView username,city;
     private LinearLayout GProfile;
     private RelativeLayout GSignin;
     private Button landmarksButton;
@@ -51,6 +52,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
 
         profImg = (ImageView) findViewById(R.id.image);
         username = (TextView) findViewById(R.id.username);
+        city  = (TextView) findViewById(R.id.pCity);
 
         GProfile = (LinearLayout) findViewById(R.id.GProfile);
         GSignin = (RelativeLayout) findViewById(R.id.GSignin);
@@ -149,8 +151,15 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
                 Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                 String personName = currentPerson.getDisplayName();
                 String userPhoto = currentPerson.getImage().getUrl();
-
+                String lCity= "";
+                List<Person.PlacesLived> personCity= currentPerson.getPlacesLived();
+                if (personCity != null) {
+                    for (Person.PlacesLived place : personCity) {
+                        lCity = place.getValue();
+                    }
+                }
                 username.setText(personName);
+                city.setText(lCity);
 
                 userPhoto = userPhoto.substring(0,userPhoto.length() -2) + 400;
 

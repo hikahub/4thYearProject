@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">TourMe</string>
+    <string name="app_name" translatable="false">Tour Me</string>
     <string name="title_activity_landmarks" translatable="false">Tour Me</string>
 
     <!--Buttons-->
@@ -8,6 +8,8 @@
     <string name="l_landmark">Landmarks</string>
     <string name="l_find">Find</string>
     <string name="l_map">Map Type</string>
+    <string name="StreetView">Street View</string>
+    <string name="Share">Share to G+</string>
 
     <!--Spinner-->
     <string-array name="landmark_name">
@@ -18,6 +20,8 @@
         <item>@string/Museum</item>
         <item>@string/Zoo</item>
         <item>@string/Sports</item>
+        <item>@string/Restaurant</item>
+        <item>@string/Transportation</item>
     </string-array>
 
     <!--Details-->
@@ -32,4 +36,7 @@
     <string name="Museum" >Museum</string>
     <string name="Zoo" >Zoo</string>
     <string name="Sports" >Sports Area</string>
+    <string name="Restaurant">Restaurant</string>
+    <string name="Transportation">Transportation</string>
+
 </resources>

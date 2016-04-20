@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
     private Spinner landmarkName;
 
     double mLatitude=0, mLongtitude=0;
-    String[] landmarkTypes={"establishment","park","art_gallery","church","museum","zoo","stadium"};
+    String[] landmarkTypes={"park|museum|stadium|church","park","art_gallery","church","museum","zoo","stadium","restaurant","train_station|taxi_stand|bus_station"};
     String[] landmarkCategory=null;
 
     HashMap<String,String> markerLink = new HashMap<String,String>();
@@ -67,10 +68,6 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
         landmarkName = (Spinner) findViewById(R.id.landmarks_category);
         landmarkName.setAdapter(adapter);
 
-
-
-        // Getting reference to Find Button
-        //Button btnFind = ( Button ) findViewById(R.id.btn_find);
 
 
         // Getting Google Play availability status
@@ -94,6 +91,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             String provider = locationManager.getBestProvider(criteria, true);
+
             // Getting Current Location From GPS
             Location location = locationManager.getLastKnownLocation(provider);
 
@@ -140,46 +138,6 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
-            // Setting click event lister for the find button
-//            btnFind.setOnClickListener(new OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    int selectedPosition = landmarkName.getSelectedItemPosition();
-//                    String category = landmarkTypes[selectedPosition];
-//
-//                    StringBuilder urlString = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-//                    urlString.append("location="+mLatitude+","+mLongtitude);
-//                    urlString.append("&radius=10000");
-//                    urlString.append("&types=" + category);
-//                    urlString.append("&sensor=true");
-//                    urlString.append("&key="+ API_KEY);
-//
-//                    // Creating a new non-ui thread task to download Google place json data
-//                    LandmarksTask LTask = new LandmarksTask();
-//
-//                    // Invokes the "doInBackground()" method of the class PlaceTask
-//                    LTask.execute(urlString.toString());
-//
-//
-//                }
-//            });
-
-
-            Button shareButton  = (Button) findViewById(R.id.share_button);
-            shareButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Launch the Google+ share dialog with attribution to your app.
-                    Intent shareIntent = new PlusShare.Builder(LandmarksActivity.this)
-                            .setType("text/plain")
-                            .setText("Welcome to the Google+ platform.")
-                            .setContentUrl(Uri.parse("https://developers.google.com/+/"))
-                            .getIntent();
-
-                    startActivityForResult(shareIntent, 0);
                 }
             });
 
@@ -302,12 +260,29 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                 // longitude of the place
                 double lng = Double.parseDouble(pLandmark.get("lng"));
 
+                // Getting LocationManager object from System Service LOCATION_SERVICE
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                Criteria criteria = new Criteria();
+                String provider = locationManager.getBestProvider(criteria, true);
+
+                // Getting Current Location From GPS
+                Location location = locationManager.getLastKnownLocation(provider);
+
+                Location la2 = new Location("");
+                la2.setLatitude(lat);
+                la2.setLongitude(lng);
+
+
+                float distance = location.distanceTo(la2);
+
                 // name
                 name = pLandmark.get("place_name");
 
                 // vicinity
-                vicinity = pLandmark.get("vicinity");
-
+            ///    vicinity = pLandmark.get("vicinity");
+                DecimalFormat df = new DecimalFormat();
+                df.setMaximumFractionDigits(2);
+                vicinity = "Distance: " + String.valueOf(df.format(distance/1000.0)) + "km" ;
                 LatLng latLng = new LatLng(lat, lng);
 
                 // Setting the position for the marker
@@ -315,8 +290,8 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
 
                 // Setting the title for the marker.
                 //This will be displayed on taping the marker
-                markerOptions.title(name + " \t " + vicinity);
-
+                markerOptions.title(name);
+                markerOptions.snippet(vicinity + " \t " + String.valueOf(df.format((distance/1000.0) * 10))+ "mins");
                 // Placing a marker on the touched position
                 Marker mark = mMap.addMarker(markerOptions);
 

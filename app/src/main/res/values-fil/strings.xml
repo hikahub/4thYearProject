@@ -16,4 +16,8 @@
     <string name="l_phone">Numero ng Telepono:</string>
     <string name="l_rating">Marka:</string>
     <string name="l_webiste">Websayt:</string>
+    <string name="StreetView">Tulad sa Kalye</string>
+    <string name="Transportation">Sasakyan</string>
+    <string name="Restaurant">Kainan</string>
+    <string name="Share">Ibahagi sa G +</string>
 </resources>

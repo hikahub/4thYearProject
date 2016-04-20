@@ -1,12 +1,16 @@
 package com.example.queene.tourme.Details;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.queene.tourme.R;
+import com.google.android.gms.plus.PlusShare;
 
 import org.json.JSONObject;
 
@@ -23,6 +27,8 @@ import java.util.HashMap;
  */
 public class LandmarkDetails extends Activity {
     //WebView LandmDetails;
+    double lat,lng;
+    String name, formatted_address, website;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,6 +39,13 @@ public class LandmarkDetails extends Activity {
        // LandmDetails = (WebView) findViewById(R.id.landmark_details);
 
         //LandmDetails.getSettings().setUseWideViewPort(false);
+
+        //street view
+        Button street = (Button) findViewById(R.id.streetview);
+        street.setOnClickListener(new StreetV());
+
+        Button shareButton  = (Button) findViewById(R.id.share_button);
+        shareButton.setOnClickListener(new ShareG());
 
         // Getting place reference from the map
         String reference = getIntent().getStringExtra("reference");
@@ -47,6 +60,7 @@ public class LandmarkDetails extends Activity {
 
         // Invokes the "doInBackground()" method of the class PlaceTask
         detailsTask.execute(urlString.toString());
+
 
     };
 
@@ -142,9 +156,15 @@ public class LandmarkDetails extends Activity {
         @Override
         protected void onPostExecute(HashMap<String, String> landDetails) {
 
-            String name = landDetails.get("name");
-            String formatted_address = landDetails.get("formatted_address");
-            String website = landDetails.get("website");
+            //location of the place
+            lat = Double.parseDouble(landDetails.get("lat"));
+            lng = Double.parseDouble(landDetails.get("lng"));
+           // LatLng latLng = new LatLng(lat, lng);
+
+
+            name = landDetails.get("name");
+            formatted_address = landDetails.get("formatted_address");
+            website = landDetails.get("website");
             String rating = landDetails.get("rating");
             String international_phone_number = landDetails.get("international_phone_number");
 
@@ -162,6 +182,37 @@ public class LandmarkDetails extends Activity {
             lm_rating.setText(rating);
             lm_phone.setText(international_phone_number);
 
+        }
+
+
+    }
+
+    //Street View
+    public class StreetV implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(LandmarkDetails.this, StreetViewPanoramaViewActivity.class);
+            Bundle b = new Bundle();
+            b.putDouble("latitude", lat);
+            b.putDouble("longtitude", lng);
+            intent.putExtras(b);
+            startActivity(intent);
+        }
+    }
+
+    //share
+    public class ShareG implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View v) {
+            // Launch the Google+ share dialog with attribution to your app.
+            Intent shareIntent = new PlusShare.Builder(LandmarkDetails.this)
+                    .setType("text/plain")
+                    .setText(" checked in - " + name + "," + formatted_address + ". More info - visit " + website)
+                    .getIntent();
+
+            startActivityForResult(shareIntent, 0);
         }
     }
 
