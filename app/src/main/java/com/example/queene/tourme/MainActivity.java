@@ -31,7 +31,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
     private static final int RC_SIGN_IN = 0;
     // Google client to communicate with Google
     private GoogleApiClient mGoogleApiClient;
-
     private boolean mIntentInProgress, userSigned;
     private ConnectionResult mConnectionResult;
     private SignInButton loginButton;
@@ -57,8 +56,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         GProfile = (LinearLayout) findViewById(R.id.GProfile);
         GSignin = (RelativeLayout) findViewById(R.id.GSignin);
 
+        /*Builder to configure a GoogleApiClient
+        *  - a listener to receive connection events from GoogleApiClient
+        *  - a listener to receive connection failed events
+        *  - request for Google+ API
+        *  - OAuth 2.0 scope for accessing signed in user's profile information*/
         mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(Plus.API, Plus.PlusOptions.builder().build()).addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
+        //Launch the Landmarks Activity(map) when the button is clicked
         landmarksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +75,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
 
     }
 
+    //For Sign In
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
     }
-
+    //For Logout
     protected void onStop() {
         super.onStop();
         if (mGoogleApiClient.isConnected()) {
@@ -82,9 +88,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         }
     }
 
+    //Attempt to connect to the service but not signed in.
     private void resolveSignInError() {
         if (mConnectionResult.hasResolution()) {
             try {
+                //Prompt the user to sign in
                 mIntentInProgress = true;
                 mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
             } catch (IntentSender.SendIntentException e) {
@@ -97,6 +105,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         if (!result.hasResolution()) {
+            //Dialog returning an error message/error code
             GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(), this, 0).show();
             return;
         }
@@ -105,6 +114,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
             // store mConnectionResult
             mConnectionResult = result;
 
+            //Calling the resolveSignInError() method
             if (userSigned) {
                 resolveSignInError();
             }
@@ -127,13 +137,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         }
     }
 
+
     @Override
     public void onConnected(Bundle arg0) {
         userSigned = false;
         Toast.makeText(this, "User is Connected", Toast.LENGTH_LONG).show();
+
+        //Calling getProfileInformation method to display google+ user's information
         getProfileInformation();
     }
 
+    //Choices of activity layout
     private void updateProf(boolean isSignedIn) {
         if (isSignedIn) {
             GSignin.setVisibility(View.GONE);
@@ -145,6 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         }
     }
 
+    //Request profile information of the currently signed in user
     private void getProfileInformation() {
         try {
             if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
@@ -158,15 +173,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
                         lCity = place.getValue();
                     }
                 }
+                //set the value from user Google+ to the
                 username.setText(personName);
                 city.setText(lCity);
 
                 userPhoto = userPhoto.substring(0,userPhoto.length() -2) + 400;
 
+                //Calling the methos to get user's profile picture
                 new LoadProfileImage(profImg).execute(userPhoto);
 
-                // update profile frame with new info about Google Account
-                // profile
+                // update profile frame with new info about Google Account- profile
                 updateProf(true);
             }
         } catch (Exception e) {
@@ -174,12 +190,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         }
     }
 
+    //When it get disconnected from the Google Play services
     @Override
     public void onConnectionSuspended(int cause) {
         mGoogleApiClient.connect();
         updateProf(false);
     }
 
+    //Calling googlePlusLogin method when the sign-in button is clicked
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -197,6 +215,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         googlePlusLogout();
     }
 
+    //Connecting to Google+ through the application
     private void googlePlusLogin() {
         if (!mGoogleApiClient.isConnecting()) {
             userSigned = true;
@@ -204,6 +223,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
         }
     }
 
+    //Disconnected from Google+
     private void googlePlusLogout() {
         if (mGoogleApiClient.isConnected()) {
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
@@ -226,6 +246,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Goog
             Bitmap iconB = null;
             try {
                 InputStream in = new java.net.URL(url).openStream();
+
+                //Decode an input stream from image URL into a bitmap
                 iconB = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());

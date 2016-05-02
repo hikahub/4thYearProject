@@ -26,7 +26,7 @@ import java.util.HashMap;
  * Created by Queene on 26/01/2016.
  */
 public class LandmarkDetails extends Activity {
-    //WebView LandmDetails;
+
     double lat,lng;
     String name, formatted_address, website;
 
@@ -35,21 +35,20 @@ public class LandmarkDetails extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landmark_details);
 
-        // Getting reference to WebView ( wv_place_details ) of the layout activity_place_details
-       // LandmDetails = (WebView) findViewById(R.id.landmark_details);
-
-        //LandmDetails.getSettings().setUseWideViewPort(false);
-
-        //street view
+        //Panorama StreetView and calling the streetview method
         Button street = (Button) findViewById(R.id.streetview);
         street.setOnClickListener(new StreetV());
-
+        //Sharing to G+ and calling the share method
         Button shareButton  = (Button) findViewById(R.id.share_button);
         shareButton.setOnClickListener(new ShareG());
 
         // Getting place reference from the map
         String reference = getIntent().getStringExtra("reference");
 
+         /*HTTP URL requesting Google Places API Details
+                    * -reference = textual identifier that uniquely identifies a place
+                    * reference will return places details in JSON format
+                     * - passed in the Place API key*/
         StringBuilder urlString = new StringBuilder("https://maps.googleapis.com/maps/api/place/details/json?");
         urlString.append("reference="+reference);
         urlString.append("&sensor=true");
@@ -95,13 +94,14 @@ public class LandmarkDetails extends Activity {
             bReader.close();
 
         }catch(Exception e){
-            Log.d("Exception while downloading url", e.toString());
+            //Log.d("Exception while downloading url", e.toString());
         }finally{
             iStream.close();
             urlConnection.disconnect();
         }
         return data;
     }
+
     /** A class, to download Google Place Details */
     private class DetailsTask extends AsyncTask<String, Integer, String> {
 
@@ -159,8 +159,6 @@ public class LandmarkDetails extends Activity {
             //location of the place
             lat = Double.parseDouble(landDetails.get("lat"));
             lng = Double.parseDouble(landDetails.get("lng"));
-           // LatLng latLng = new LatLng(lat, lng);
-
 
             name = landDetails.get("name");
             formatted_address = landDetails.get("formatted_address");
@@ -168,14 +166,14 @@ public class LandmarkDetails extends Activity {
             String rating = landDetails.get("rating");
             String international_phone_number = landDetails.get("international_phone_number");
 
-
+            //Calling the textview id from XML
             TextView lm_name = (TextView) findViewById(R.id.name);
             TextView lm_address = (TextView) findViewById(R.id.address);
             TextView lm_website = (TextView) findViewById(R.id.website);
             TextView lm_rating = (TextView) findViewById(R.id.rating);
             TextView lm_phone = (TextView) findViewById(R.id.phone);
 
-
+            //Set the parse data from JSON to the textview in XML
             lm_name.setText(name);
             lm_address.setText(formatted_address);
             lm_website.setText(website);
@@ -187,13 +185,14 @@ public class LandmarkDetails extends Activity {
 
     }
 
-    //Street View
+    //Launch the StreetViewPanoramaActivity when the button is clicked
     public class StreetV implements View.OnClickListener
     {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(LandmarkDetails.this, StreetViewPanoramaViewActivity.class);
             Bundle b = new Bundle();
+            /*placing latitude and longtitude(double) into the Intent */
             b.putDouble("latitude", lat);
             b.putDouble("longtitude", lng);
             intent.putExtras(b);
@@ -201,7 +200,7 @@ public class LandmarkDetails extends Activity {
         }
     }
 
-    //share
+    //Launch the ShareIntent when the button is clicked
     public class ShareG implements View.OnClickListener
     {
         @Override

@@ -63,6 +63,7 @@ public class LandmarkParser {
             String longitude = jObj.getJSONObject("geometry").getJSONObject("location").getString("lng");
             String reference = jObj.getString("reference");
 
+
             landmark.put("place_name", placeName);
             landmark.put("vicinity", vicinity);
             landmark.put("lat", latitude);

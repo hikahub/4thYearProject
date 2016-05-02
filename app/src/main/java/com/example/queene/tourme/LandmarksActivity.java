@@ -6,7 +6,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.queene.tourme.Details.LandmarkDetails;
@@ -28,7 +26,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.plus.PlusShare;
 
 import org.json.JSONObject;
 
@@ -42,7 +39,6 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
-//link to details
 
 public class LandmarksActivity extends FragmentActivity implements LocationListener{
     private String API_KEY = "AIzaSyBVc4wVf-geMQBwcoD8zBTisSLil3i6SUc";
@@ -50,7 +46,9 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
     private Spinner landmarkName;
 
     double mLatitude=0, mLongtitude=0;
+    //Array values for the type of places which is the property in Google PLaces API
     String[] landmarkTypes={"park|museum|stadium|church","park","art_gallery","church","museum","zoo","stadium","restaurant","train_station|taxi_stand|bus_station"};
+    //An array of names for the spinner corresponding the types property
     String[] landmarkCategory=null;
 
     HashMap<String,String> markerLink = new HashMap<String,String>();
@@ -61,14 +59,13 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
         setContentView(R.layout.activity_landmarks);
 
         landmarkCategory = getResources().getStringArray(R.array.landmark_name);
+
         // Creating an array adapter with an array of Landmarks types to populate the spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, landmarkCategory);
 
         // Getting reference to the Spinner
         landmarkName = (Spinner) findViewById(R.id.landmarks_category);
         landmarkName.setAdapter(adapter);
-
-
 
         // Getting Google Play availability status
        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
@@ -79,12 +76,11 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
             dialog.show();
 
         }else { // Google Play Services are available
-            //Google Maps
+            //Places a Google Maps in the application
             SupportMapFragment fragment = ( SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
             mMap = fragment.getMap();
             // Enabling phone location in Google Map
             mMap.setMyLocationEnabled(true);
-
 
 
             // Getting LocationManager object from System Service LOCATION_SERVICE
@@ -98,28 +94,36 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
             if(location!=null){
                 onLocationChanged(location);
             }
-            locationManager.requestLocationUpdates(provider, 20000, 10, this);
+            locationManager.requestLocationUpdates(provider, 20000, 0, this);
 
-            //landmarkdetails
+
             mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
                     Intent intent = new Intent(getBaseContext(), LandmarkDetails.class);
                     String reference = markerLink.get(arg0.getId());
+                    //referencing information for a particular place called in the LandmarkDetails Activity
                     intent.putExtra("reference", reference);
 
-                    // Starting the Place Details Activity
+                    // Starting the Landmark Details Activity
                     startActivity(intent);
                 }
             });
 
+            //Executed when spinner value is selected
             landmarkName.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     int selectedPosition = landmarkName.getSelectedItemPosition();
+                    //Contain type of places from Google Places API
                     String category = landmarkTypes[selectedPosition];
 
+                    /*HTTP URL requesting Google Places API
+                    * -search for nearbyplaces and returned in JSON format
+                    * -passed in gps coordinates
+                    * -passed in the type of places selected from spinner
+                     * - passed in the Place API key*/
                     StringBuilder urlString = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
                     urlString.append("location="+mLatitude+","+mLongtitude);
                     urlString.append("&radius=10000");
@@ -135,6 +139,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
 
                 }
 
+                //Callback method to be invoked when the selection disappears from this view.
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
 
@@ -203,7 +208,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
             bReader.close();
 
         }catch(Exception e){
-            Log.d("Exception while downloading url", e.toString());
+           // Log.d("Exception while downloading url", e.toString());
         }finally{
             iStream.close();
             urlConnection.disconnect();
@@ -260,6 +265,7 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                 // longitude of the place
                 double lng = Double.parseDouble(pLandmark.get("lng"));
 
+                //Distance and Time from current location to other places location
                 // Getting LocationManager object from System Service LOCATION_SERVICE
                 LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 Criteria criteria = new Criteria();
@@ -268,18 +274,17 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                 // Getting Current Location From GPS
                 Location location = locationManager.getLastKnownLocation(provider);
 
+                //Location of selected marker(place) from the map
                 Location la2 = new Location("");
                 la2.setLatitude(lat);
                 la2.setLongitude(lng);
-
 
                 float distance = location.distanceTo(la2);
 
                 // name
                 name = pLandmark.get("place_name");
 
-                // vicinity
-            ///    vicinity = pLandmark.get("vicinity");
+                //Calculate the distance from current location to other places location
                 DecimalFormat df = new DecimalFormat();
                 df.setMaximumFractionDigits(2);
                 vicinity = "Distance: " + String.valueOf(df.format(distance/1000.0)) + "km" ;
@@ -291,12 +296,13 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
                 // Setting the title for the marker.
                 //This will be displayed on taping the marker
                 markerOptions.title(name);
+                //Display the Distance and Time duration on the infowindow of the marker
                 markerOptions.snippet(vicinity + " \t " + String.valueOf(df.format((distance/1000.0) * 10))+ "mins");
                 // Placing a marker on the touched position
                 Marker mark = mMap.addMarker(markerOptions);
 
 
-                //linking the marker and landmark ref
+                //linking the marker and landmark reference
                 markerLink.put(mark.getId(),pLandmark.get("reference"));
 
             }
@@ -305,40 +311,48 @@ public class LandmarksActivity extends FragmentActivity implements LocationListe
 
     }
 
-
+    //Changing camera position
     @Override
     public void onLocationChanged(Location location) {
-        mLatitude = location.getLatitude();
-        mLongtitude= location.getLongitude();
+         mLatitude = location.getLatitude();
+         mLongtitude= location.getLongitude();
         LatLng latLng = new LatLng(mLatitude, mLongtitude);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        /*changes the camera's latitude, longitude and zoom
+         * - 16(Streets) is the zoom level determining the scale of the map
+         * - 12(between Streets and city)*/
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
     }
 
+    //Map Types
     public void changeType(View view)
     {
+        //displays the default road map view
         if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
         {
+            //displays a mixture of normal and satellite views
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         }
         else
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
+    //Called when the provider is disabled by the user.
     @Override
     public void onProviderDisabled(String provider) {
         // TODO Auto-generated method stub
 
     }
 
+    //Called when the provider is enabled by the user.
     @Override
     public void onProviderEnabled(String provider) {
         // TODO Auto-generated method stub
 
     }
 
+    //called when the provider status changes.
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub
